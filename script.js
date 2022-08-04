@@ -7,7 +7,8 @@ let listaDesordeada = document.querySelector("ul");
 let inputTitulo = document.querySelector("#titulo");
 let inputAutor = document.querySelector("#autor");
 let inputDireccion = document.querySelector("#direccion");
-// class
+
+
 class Pedido {
     constructor(titulo, autor, direccion) {
       this.titulo = titulo;
@@ -21,6 +22,24 @@ class Pedido {
       listaDesordeada.appendChild(newLi)
     }
 }
+// Event listeners
+botonCargar.addEventListener("click", () =>{
+  let numberOfLi = document.querySelectorAll("ul>li").length;
+  if(numberOfLi >= 5){
+    alert ("El límite de pedidos es 5")
+    clearLi()
+  }else{
+    let nuevoPedido = new Pedido(inputTitulo.value, inputAutor.value, inputDireccion.value);
+    clearInputs(inputTitulo, inputAutor, inputDireccion);
+  };
+})
+
+botonRefrescar.addEventListener("click", () =>{
+  clearInputs(inputTitulo, inputAutor, inputDireccion);
+  clearLi();
+})
+
+// Functions
 
 function clearInputs(){
   for(let i = 0; i < arguments.length; i++){
@@ -28,8 +47,9 @@ function clearInputs(){
   }
 }
 
+function clearLi(){
+  while(listaDesordeada.firstChild){
+    listaDesordeada.removeChild(listaDesordeada.firstChild)
+  }
 
-botonCargar.addEventListener("click", () =>{
-  let nuevoPedido = new Pedido(inputTitulo.value, inputAutor.value, inputDireccion.value)
-  clearInputs(inputTitulo, inputAutor, inputDireccion)
-})
+}
